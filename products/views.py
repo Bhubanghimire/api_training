@@ -7,10 +7,10 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from accounts.permissions import AdminPermission, NormalUserPermission
 from accounts.middleware import generate_access_token, generate_refresh_token
-
+from rest_framework.permissions import  AllowAny
 
 class ProductListAPI(APIView):
-    permission_classes = [IsAuthenticated]
+    
     
     def get(self, request):
         id = request.GET.get('id', False)
@@ -57,6 +57,8 @@ class ProductListAPI(APIView):
         
         
 class LoginAPIView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         username = request.data.get('email')
         password = request.data.get('password')
